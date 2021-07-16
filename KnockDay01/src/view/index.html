@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+        <input type="text" data-bind="value:inputValue" value="InputValue" />
+        <br>
+        value:<b data-bind="text:inputValue"></b>
+
+        <div>
+            <h1>demo loop foreach</h1>
+            <ul data-bind="foreach:{data:list,as:'item'}">
+                <li>
+                    <p>
+                        id:<span data-bind="text:item.id"></span>
+                    </p>
+                    <p>
+                        English: <span data-bind="text:item.englishName"></span>
+                        <span data-bind="if:item.englishName==='Earth'">:I love earth</span>
+                    </p>
+                    <p>
+                        Chinese: <span data-bind="text:item.chineseName"></span>
+                        <span data-bind="if:item.chineseName==='地球'">我爱地球</span>
+                    </p>
+                    <p>
+                        description:<span data-bind="text:item.description"></span>
+                    </p>
+                    checkbox:<input type="checkbox" data-bind="checked:item.status" />
+                </li>
+            </ul>
+        </div>
+        <button data-bind="click:addPlanet">add function</button>
+    </div>
+</body>
+
+</html>
