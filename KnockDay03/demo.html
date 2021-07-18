@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div data-bind="component:'MessageAndList'"></div>
+
+    <div data-bind="component:{name:'MessageAndList',params:'jerry'}"></div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const components = ko.components.register(
+                `MessageAndList`, {
+                viewModel: function (params) {
+                    var self = this;
+                    self.Account = ko.observable(params !== undefined? params:"tom");
+                    self.MessageText = ko.observable("");
+                    self.MessageList = ko.observableArray([]);
+                    self.Send = function () {
+                        self.MessageList.push({
+                            message: self.MessageText(),
+                            account: self.Account(),
+                        })
+                        self.MessageText("")
+                    }
+                },
+                template: `
+                    <input type="text" data-bind="value:MessageText" /><button data-bind="click:Send">send</button>
+                    <ul data-bind="foreach:MessageList">
+                        <li>
+                            <p data-bind="html:message"></p>
+                            <b data-bind="html:account"></b>
+                        </li>
+                    </ul>
+                `
+                }
+            )
+            ko.applyBindings(components);
+        })
+    </script>
+</body>
+
+</html>

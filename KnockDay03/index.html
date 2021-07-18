@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>To Do List</title>
+	</head>
+	<body>
+		<div class="main">
+			<div class="content">
+				<h1>ToDo List</h1>
+                <form data-bind="submit: addToDo">
+				    <input id="newToDo" placeholder="What needs to be done?" class="input" />
+                </form>
+				<div data-bind="text: remainingTodos() + ' remaining'"></div>
+				<hr />
+				<input id="allDone" type="checkbox" data-bind="checked:!remainingTodos(), event: {change: allDone}" />Mark all as Done
+				<hr />
+				<ul data-bind="foreach: toDos">
+					<li data-bind="css: {normal: !isDone(), scored: isDone()}">
+						<input type="checkbox" data-bind="event: {change: markDone}, checked:isDone()" /><span data-bind="text: text"></span>
+					</li>
+                </ul>
+				<button data-bind="click: removeChecked">Clear todos done</button>
+			</div>
+		</div>
+        <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.js"></script>
+		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.0.js"></script>
+		<script type="text/javascript">
+		//define toDo 
+		var toDo = function(txt) {
+			this.text = ko.observable(txt);
+			this.isDone = ko.observable(false);
+
+			this.markDone = function() {
+        		this.isDone(!this.isDone());
+			}
+		} 
+		//define viewModel
+		var toDoListModel = {
+			toDos : ko.observableArray([
+				new toDo("Get Milk"),
+				new toDo("Get Newspaper")
+			]),
+		
+			addToDo: function(data, event) {
+                var todo = $.trim($("#newToDo").val());
+                if (todo != "") {
+					this.toDos.push(new toDo(todo));
+					$("#newToDo").val('');
+				}
+			},
+
+			removeChecked: function() {
+				this.toDos.remove(function(item) { return item.isDone()});
+	
+			},
+
+			allDone: function() {
+				var status = $("#allDone").is(':checked');
+				for (var i = 0; i < this.toDos().length; i++) {
+					this.toDos()[i].isDone(status);
+				}
+			}
+		};
+		
+        //computed property
+		toDoListModel.remainingTodos = ko.computed(function() {
+			var arr = ko.utils.arrayFilter(this.toDos(), function(item) {
+				return !item.isDone();
+			});
+			return arr.length;			
+		}, toDoListModel);
+
+		//apply bindings
+		ko.applyBindings(toDoListModel);
+		</script>
+	</body>
+</html>
