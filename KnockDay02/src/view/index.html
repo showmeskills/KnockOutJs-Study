@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="id">
+        Year:<input data-bind="value:year" /><br/>
+        Month:<input data-bind="value:month" /><br/>
+        Day:<input data-bind="value:day" /><br/>
+        Date:<span data-bind="html:Date"></span>
+        <input data-bind="value:Date" />
+
+        <hr/>
+        FirstName:<input data-bind="value:firstName"/><br/>
+        LastName:<input data-bind="value:lastName" /><br/>
+        FullName:<input data-bind="value:fullName"/><br/>
+        FullName1:<input data-bind="value:fullName1" />
+        <hr/>
+        count:<h1 data-bind="html:count,style:{color:indexColor,display:isShow},event:{mouseover:onMouseEnter,mouseout:onMouseLeave}"></h1>
+        <div>
+            <button data-bind="event:{click:increment}">++</button>
+            <button data-bind="event:{click:decrement}">--</button>
+        </div>
+    </div>
+</body>
+</html>
