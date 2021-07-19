@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- view -->
+        <h1>Account Details</h1>
+        <div>id:<span data-bind="text:Id"></span></div>
+        <div>name:<span data-bind="text:Name"></span></div>
+        <div>balance:<span data-bind="text:Balance"></span></div>
+        <input type="button" id="btnShowDetails" value="ShowDetails"/><br/>
+        Amount:<input type="text" id="txtAmount"  />
+        <input type="button" id="btnDeposit" value="Deposit" />
+        <hr/>
+        Id:<input type="text" data-bind="value:Id"/><br/>
+        New Balance:<input type="text" data-bind="value:Balance"/>
+    </div>
+</body>
+</html>
