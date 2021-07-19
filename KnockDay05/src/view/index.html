@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <div id="app">
+        <h1>Account Details</h1>
+        <div>Id:<span data-bind="text:Id"></span></div>
+        <h1>Name:<span data-bind="text:Name"></span></h1>
+        <div>Balance:<span data-bind="text:Balance"></span></div>
+        <h1>observable array</h1>
+        <ul data-bind="foreach:Accounts">
+            <li>
+                <div>id:<span data-bind="text:Id"></span></div>
+                <div>Name:<span data-bind="text:Name"></span></div>
+                <div>Balance:<span data-bind="text:Balance"></span></div>
+            </li>
+        </ul>
+        <h1>Accounts Selected</h1>
+        <div>total account length:<span data-bind="text:Accounts().length"></span></div>
+
+        Total Balance in all Accounts:<b data-bind="text:TotalBalance"></b>
+        <hr>
+        <select id="ddlAccounts" data-bind="options:Accounts,optionsText:'Name',optionsValue:'Id'"></select>
+        <h1>Selected Account Details</h1>
+        Id:<span data-bind="text:Accounts()[SelectedAccountIndex()].Id"></span><br/>
+        Name:<span data-bind="text:Accounts()[SelectedAccountIndex()].Name"> </span><br/>
+        Balance:<span data-bind="text:Accounts()[SelectedAccountIndex()].Balance"></span><br/>
+        <hr/>
+
+        <h1>add New Account</h1>
+        New Id:<input type="text" id="txtNewId"/>
+        New Name:<input type="text" id="txtNewName" />
+        New Balance:<input type="text" id="txtNewBalance" />
+        <div>
+            <button data-bind="click:AddNewAccount">add new account</button>
+        </div>
+        <div>
+            <button data-bind="click:RemoveAccount.bind($data,1)">remove account</button>
+        </div>
+    </div>
+    <hr></hr>
+    <div id="form">
+        <form data-bind="submit:SubmitForm">
+            <div>
+                <label for="name">name:</label>
+                <input type="text" id="name" data-bind="value:Name"/> <span data-bind="text:NameError,style:{color:'red'}"></span>
+            </div>
+            <div>
+                <label for="email">email:</label>
+                <input type="email" id="email" data-bind="value:Email"/> <span data-bind="text:EmailError,style:{color:'red'}"></span>
+            </div>
+            <div>
+                <label for="citylist">city:</label>
+                <!-- options:绑定CityList,optionsText:显示的内容,optionsValue:选择后输出的值,value:"与相同名字的属性绑定",optionsCaption:"初始化显示" -->
+                <select id="citylist" data-bind="options:CityList,optionsText:'Name',optionsValue:'Code',value:City,optionsCaption:'请选择城市'"></select>
+            </div>
+            <div>
+                <label for="arealist">district:</label>
+                <!-- options:绑定CityList,optionsText:显示的内容,optionsValue:选择后输出的值,value:"与相同名字的属性绑定",optionCaptain:"初始化显示" -->
+                <select id="arealist" data-bind="options:CurrentAreaList,optionsText:'Name',optionsValue:'Code',value:Area,optionsCaption:'请选择区'"></select>
+            </div>
+            <div>
+                <label for="hobits">hobits:</label>
+                <!-- select multiple selected selectedOptions:定义的属性 -->
+                <select multiple="multiple" id="hobits" data-bind="options:Hobits,selectedOptions:MyHobits"></select>
+            </div>
+            <div>
+                <input type="submit" value="submit" />
+            </div>
+        </form>
+    </div>
+    <script></script>
+</body>
+</html>
