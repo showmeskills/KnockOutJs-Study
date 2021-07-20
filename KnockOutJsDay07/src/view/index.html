@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id="app">
+    <div id="div" data-bind="if:ShowHideSection">this is hide or show</div>
+    <div id="div1" data-bind="visible:ShowHideSection">this is hide or show 2</div>
+    <div data-bind="ifnot:ShowHideSection">this is ifnot hide or show</div>
+    <div data-bind="if:!ShowHideSection()">this is ifnot hide or show</div>
+    <button data-bind="click:HandleShow">click change</button>
+    <hr />
+    <input type="checkbox" data-bind="checked:ShowHideSection">
+    <button onclick="alert(document.getElementById('div').innerHTML)">different visible and if</button>
+    <button onclick="alert(document.getElementById('div1').innerHTML)">different visible and if</button>
+    <hr />
+    <hr />
+    <hr />
+    <ul>
+        <li>This item always appears</li>
+        <!-- ko if:ShowHideSection -->
+        <li>This item present or absent dynamically</li>
+        <!-- /ko -->
+    </ul>
+    <br>
+    <br>
+    <br>
+    <!-- no with -->
+    City:<span data-bind="text:City"></span>
+    Office Phone:<span data-bind="text:Phone.Office"></span>
+    Home Phone:<span data-bind="text:Phone.Home"></span>
+    <br>
+    <!-- with -->
+    City:<span data-bind="text:City"></span>
+    <span data-bind="with:Phone">
+        Office Phone:<span data-bind="text:Office"></span>
+        Home Phone:<span data-bind="text:Home"></span>
+    </span>
+    <br>
+    <ul data-bind="foreach:Colors">
+        <!-- $data current item -->
+        <li data-bind="text:$data"></li>
+    </ul>
+</div>
+<div id="account">
+    <ul data-bind="foreach:Accounts">
+        <li>
+            id:<span data-bind="text:$data.Id"></span>
+            Name:-<span data-bind="text:$data.Name"></span>
+            Balance:$<span data-bind="text:Balance"></span>
+            Deposite:$<span data-bind="text:Deposits"></span>
+        </li>
+    </ul>
+    <button data-bind="click:HandleClick">click me</button>
+    <br>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Balance</td>
+                <td>Index</td>
+                <td>Deposits</td>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:{data:Accounts,as:'Account'}">
+            <tr>
+                <td data-bind="text:Account.Id"></td>
+                <td data-bind="text:Account.Name"></td>
+                <td data-bind="text:Account.Balance"></td>
+                <!-- 
+                    $parent refers viewmodel object in parent context 
+                    $parent[0] is the view model from the parent context 
+                    $parent[1] is the view model from the grandparent context
+                    $parent[2] is the view model from the great-grandparent context
+                    $root is the main view model object in the root context, it's usually the object that was passed to ko.applyBindings
+                -->
+                <td data-bind="text:(($index()+1)+'/'+$parent.Length())"></td>
+                <td data-bind="foreach:{data:Deposits,as:'Amount'}">
+                    <li data-bind="text:('Name:'+Account.Name+ ',Deposited:' + Amount+ ':'+$parents[1].Length())"></li>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
