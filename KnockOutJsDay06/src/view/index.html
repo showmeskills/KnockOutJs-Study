@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <div id="app">
+        <input type="range" name="txtNumber" data-bind="value:MyNumber" min="1" max="100" />
+        This number is <span data-bind="text:IsEvenNumber()===true?'Even':'Odd'"></span>
+        <span data-bind="visible:IsEvenNumber">Even</span>
+        <span data-bind="visible:IsEvenNumber() === false">Odd</span>
+        <br/>
+        Number1:<b data-bind="text:MyNumber"></b>
+        Number2:(<!-- ko text:MyNumber --><!-- /ko -->)
+        <hr/>
+        <!-- text cannot read html tag -->
+        text:<span data-bind="text:FomattedNumber"></span>
+        <div></div>
+        <!-- html can read html tag -->
+        html:<span data-bind="html:FomattedNumber"></span>
+        <hr>
+        <!-- style:{color:CustomizedStyle} -->
+        <div data-bind="style:{color:DisplayColor,fontWeight:MyNumber()>50? 'bold':'',fontSize:MyNumber()>50?'25px':'16px'}">style:color change</div>
+        <!-- css:{cssName:true or false} -->
+        <div data-bind="css:{redColor:IsEvenNumber}">css color change</div>
+        <!-- attr binding -->
+        <a data-bind="attr:{href:Urls()[MyNumber()%2],title:DisplayColor}">click here</a>
+    </div>
+</body>
+</html>
