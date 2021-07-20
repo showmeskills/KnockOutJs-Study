@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <div id="app">
+        <h1>demo</h1>
+        <table>
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Index</td>
+                <td>Name</td>
+                <td>Balance</td>
+                <td>Deposites</td>
+              </tr>
+            </thead>
+            <tbody data-bind="foreach:{data:Accounts,as:'Account'}">
+                <tr style="cursor:pointer" data-bind="event:{click:$parent.SelectedAccount},css:{selected:(Account.Id === ($parent.SelectedAccount()===null?-1:$parent.SelectedAccount().Id) )}">
+                    <td data-bind="text:Account.Id"></td>
+                    <td data-bind="text:(($index()+1)+'/'+$parent.Count())"></td>
+                    <td data-bind="text:Account.Name"></td>
+                    <td data-bind="text:Account.Balance()"></td>
+                    <td>
+                        <!-- automatically transmit account into viewModel function -->
+                        <button data-bind="click:$parent.SelectedAccount,clickBubble:false">select</button>
+                    </td>
+                    <td>
+                        <!-- automatically transmit account into viewModel function -->
+                        <button data-bind="click:$parent.DeleteAccount,clickBubble:false">delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <input type="text" data-bind="value:AmountToDeposite" />
+            <button data-bind="click:Deposite.bind($data)">Deposit</button>
+        </div>
+        <div>
+            <input type="text" data-bind="value:AmountToTransc" />
+            <button data-bind="click:function(data){WithDraw(500)}">WithDraw</button>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div>
+            Id:<input type="number" data-bind="value:Id"/><br/>
+            Name:<input type="text" data-bind="value:Name"/><br/>
+            Balance:<input type="number" data-bind="value:Balance"/><br/>
+            <div>
+                <button data-bind="click:AddNewAccount">add a new account</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
