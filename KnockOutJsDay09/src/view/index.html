@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id="app">
+    <h1>demo</h1>
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Index</td>
+                <td>Name</td>
+                <td>Balance</td>
+                <td>Deposites</td>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:{data:Accounts,as:'Account'}">
+            <tr style="cursor:pointer"
+                data-bind="event:{click:$parent.SelectedAccount},css:{selected:(Account.Id === ($parent.SelectedAccount()===null?-1:$parent.SelectedAccount().Id) )}">
+                <td data-bind="text:Account.Id"></td>
+                <td data-bind="text:(($index()+1)+'/'+$parent.Count())"></td>
+                <td data-bind="text:Account.Name"></td>
+                <td data-bind="text:Account.Balance()"></td>
+                <td>
+                    <!-- automatically transmit account into viewModel function -->
+                    <button data-bind="click:$parent.SelectedAccount,clickBubble:false">select</button>
+                </td>
+                <td>
+                    <!-- automatically transmit account into viewModel function -->
+                    <button data-bind="click:$parent.DeleteAccount,clickBubble:false">delete</button>
+                </td>
+                <td>
+                    <button class="btn-delete-account">unobstrusive (delete)</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <input type="text" data-bind="value:AmountToDeposite" />
+        <button data-bind="click:Deposite.bind($data),enable:SelectedAccount() !== null">Deposit</button>
+    </div>
+    <div>
+        <input type="text" data-bind="value:AmountToTransc" />
+        <button data-bind="click:function(data){WithDraw(500)},,enable:SelectedAccount() !== null">WithDraw</button>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div>
+        Id:<input type="number" data-bind="value:Id" /><br />
+        Name:<input type="text" data-bind="value:Name" /><br />
+        Balance:<input type="number" data-bind="value:Balance" /><br />
+        <div>
+            <button data-bind="click:AddNewAccount">add a new account</button>
+        </div>
+    </div>
+</div>
+<div id="app1">
+    <!-- textInput is two ways bindings -->
+    <input type="text" data-bind="textInput:Prop1"></br>
+    <!-- value is after action bindings -->
+    <input type="text" data-bind="value:Prop2"></br>
+    <span data-bind="text:Prop1()+' '+Prop2()"></span>
+    </br>
+    <!-- checkbox input value with observableArray value 相同的value会显示true -->
+    <input type="checkbox" value="1" data-bind="checked:Arr">1
+    <input type="checkbox" value="2" data-bind="checked:Arr">2
+    <input type="checkbox" value="3" data-bind="checked:Arr">3
+    <input type="checkbox" value="4" data-bind="checked:Arr">4
+    <input type="checkbox" value="5" data-bind="checked:Arr">5
+    <input type="checkbox" value="6" data-bind="checked:Arr">6
+    <input type="checkbox" value="7" data-bind="checked:Arr">7
+    <input type="checkbox" value="8" data-bind="checked:Arr">8
+    <input type="checkbox" value="9" data-bind="checked:Arr">9
+    <input type="checkbox" value="10" data-bind="checked:Arr">10
+    <div>
+        <button id="btn-show">show arr</button>
+    </div>
+    <select style="width:100px;height:100px;font-size:20px;color:pink;" size="4" multiple="multiple" data-bind="options:Arr, selectedOptions:ArrFiltered"></select>
+    <div>
+        <!-- 通过checkbox 来 控制select 多选 -->
+        <h1>demo</h1>
+        <input type="checkbox" value="1" data-bind="checked:SelectedArr" />1
+        <input type="checkbox" value="2" data-bind="checked:SelectedArr" />2
+        <input type="checkbox" value="3" data-bind="checked:SelectedArr" />3
+        <input type="checkbox" value="4" data-bind="checked:SelectedArr" />4
+        <div>
+            <select style="width:100px;height:100px;font-size:20px;color:pink;"  size="10" multiple="multiple" data-bind="options:SelectedArr,selectedOptions:SelectedArr"></select>
+        </div>
+    </div>
+</div>
+<div id="department">
+    <select data-bind="options:Departments,optionsText:'Name',optionsValue:'Id',optionsCaption:'Choose..',value:SelectedValue"></select>
+    <h1 data-bind="text:SelectedValue"></h1>
+</div>
+</body>
+
+</html>
