@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id="app">
+    Name:<span data-bind="text:Name"></span>
+    Residence Address:
+    <!-- template:{name:"template name",data:viewModel parameter} -->
+    <div data-bind="template:{name:'address-templ',data:ResidenceAddress}"></div>
+    <hr>
+    Office Address:
+    <!-- render office address when it is not null -->
+    <div data-bind="template:{name:'address-templ',data:OfficeAddress,if:OfficeAddress() !== null}"></div>
+</div>
+
+
+
+<div id="account">
+    <table data-bind="template:{name:'acc-templ',foreach:Accounts, as: 'Account'}"></table>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <table data-bind="template:{name:DynamicallyTemplate,foreach:Accounts, as: 'Account'}"></table>
+</div>
+
+
+<script id="address-templ" type="text/html">
+    Street:<span data-bind="text:Street"></span><br/>
+    City:<span data-bind="text:City"></span><br/>
+    State:<span data-bind="text:State"></span><br/>
+</script>
+<!-- normal template name -->
+<script id="acc-templ" type="text/html">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Balance</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td data-bind="text:Account.Id"></td>
+            <td data-bind="text:Account.Name"></td>
+            <td data-bind="text:Account.Balance"></td>
+        </tr>
+    </tbody>
+</script>
+<!-- dynamically name -->
+<script id="low-templ" type="text/html">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Balance</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td data-bind="text:Account.Id"></td>
+            <td data-bind="text:Account.Name"></td>
+            <td style="color:pink" data-bind="text:Account.Balance"></td>
+        </tr>
+    </tbody>
+</script>
+<!-- dynamically name -->
+<script id="high-templ" type="text/html">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Balance</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td data-bind="text:Account.Id"></td>
+            <td data-bind="text:Account.Name"></td>
+            <td style="color:red" data-bind="text:Account.Balance"></td>
+        </tr>
+    </tbody>
+</script>
+</body>
+
+</html>
