@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <div id="app">
+        <table data-bind="foreach:{data:Accounts,as:'Account'}">
+            <tr>
+                <td data-bind="text:Id"></td>
+                <td data-bind="text:Name"></td>
+                <td>
+                    <input type="text" data-bind="value:Balance" />
+                </td>
+        </table>
+        <button id="btnConvertToJS">Convert To Javascript</button>
+        <button id="btnConvertToJSON">Convert To JSON</button>
+        <button id="btnConvertFromJS">Convert From Javascript</button>
+        <button id="btnConvertFromJSON">Convert From JSON</button>
+        <!-- $root means viewmodel, null, 2(排列) -->
+        <pre data-bind="text:ko.toJSON($root,null,2)"></pre>
+    </div>
+</body>
+
+</html>
